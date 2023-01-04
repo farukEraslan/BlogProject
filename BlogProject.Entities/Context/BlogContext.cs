@@ -12,6 +12,10 @@ namespace BlogProject.Entities.Context
 {
     public class BlogContext : DbContext
     {
+        public BlogContext(DbContextOptions<BlogContext> options) : base(options)
+        {
+
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server = desktop-ufhr98h; Database = BlogProject; uid = sa; pwd = 123;");

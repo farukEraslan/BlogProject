@@ -1,6 +1,7 @@
 ﻿using BlogProject.Core.Service;
 using BlogProject.Entities.Entities;
 using BlogProject.WebUI.Models;
+using BlogProject.WebUI.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -40,13 +41,12 @@ namespace BlogProject.WebUI.Controllers
             okunanPost.ViewCount++;
             _postService.Update(okunanPost);
 
-            return View(_postService.GetById(postId)); // View'a döndürürken ilgili postu, kategorisini, yazarını(kullanıcıyı) döndürmemiz gerekecektir (birden fazla model). Bu sebeple "Tuple" ya da "ViewModel" yapısını kullanmalıyız.
-        }
+            PostDetailVM vm = new PostDetailVM();
+            vm.Post = okunanPost;
+            vm.Category = _catService.GetById(okunanPost.CategoryId);
+            vm.User = _userService.GetById(okunanPost.UserId);
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(vm); // View'a döndürürken ilgili postu, kategorisini, yazarını(kullanıcıyı) döndürmemiz gerekecektir (birden fazla model). Bu sebeple "Tuple" ya da "ViewModel" yapısını kullanmalıyız.
         }
     }
 }

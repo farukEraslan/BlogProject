@@ -1,5 +1,7 @@
 ﻿using BlogProject.Core.Service;
+using BlogProject.Entities.Context;
 using BlogProject.Service.Base;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +10,9 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddControllersWithViews();
 
 // .Net Core MVC de tamamen Dependency Injection yapısıyla çalışıyoruz. ICoreService Interface'inin BaseService ile olan gevşek bağımlılığını tanımlıyoruz. Nerede ICoreService çağırılırsa, onun yerine BaseService gönderilecektir.
-builder.Services.AddScoped(typeof(ICoreService<>), typeof(BaseService<>);
-    
+builder.Services.AddScoped(typeof(ICoreService<>), typeof(BaseService<>));
+
+builder.Services.AddDbContext<BlogContext>(options => options.UseSqlServer("Server = desktop-ufhr98h; Database = BlogProject; uid = sa; pwd = 123;"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

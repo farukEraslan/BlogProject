@@ -11,4 +11,10 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BlogProject.Core\BlogProject.Core.csproj" />
+    <ProjectReference Include="..\BlogProject.Entities\BlogProject.Entities.csproj" />
+    <ProjectReference Include="..\BlogProject.Service\BlogProject.Service.csproj" />
+  </ItemGroup>
+
 </Project>
