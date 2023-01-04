@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - BlogProject.WebUI</title>
+    <title>@ViewData["Title"] - BA Blog</title>
     <link rel="stylesheet" href="~/frontTemplate/fontawesome/css/all.min.css"> <!-- https://fontawesome.com/ -->
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> <!-- https://fonts.google.com/ -->
     <link href="~/frontTemplate/css/bootstrap.min.css" rel="stylesheet">
@@ -24,32 +24,20 @@
             </button>
             <div class="tm-site-header">
                 <div class="mb-3 mx-auto tm-site-logo"><i class="fas fa-times fa-2x"></i></div>
-                <h1 class="text-center">Xtra Blog</h1>
+                <h1 class="text-center">BA Blog</h1>
             </div>
             <nav class="tm-nav" id="tm-nav">
                 <ul>
                     <li class="tm-nav-item active">
-                        <a href="index.html" class="tm-nav-link">
+                        <a asp-action="Index" asp-controller="Home" asp-area="" class="tm-nav-link">
                             <i class="fas fa-home"></i>
-                            Blog Home
+                            Anasayfa
                         </a>
                     </li>
                     <li class="tm-nav-item">
-                        <a href="post.html" class="tm-nav-link">
+                        <a asp-action="Index" asp-controller="Category" asp-area="" class="tm-nav-link">
                             <i class="fas fa-pen"></i>
-                            Single Post
-                        </a>
-                    </li>
-                    <li class="tm-nav-item">
-                        <a href="about.html" class="tm-nav-link">
-                            <i class="fas fa-users"></i>
-                            About Xtra
-                        </a>
-                    </li>
-                    <li class="tm-nav-item">
-                        <a href="contact.html" class="tm-nav-link">
-                            <i class="far fa-comments"></i>
-                            Contact Us
+                            Kategoriler
                         </a>
                     </li>
                 </ul>
@@ -69,7 +57,7 @@
                 </a>
             </div>
             <p class="tm-mb-80 pr-5 text-white">
-                Xtra Blog is a multi-purpose HTML template from TemplateMo website. Left side is a sticky menu bar. Right side content will scroll up and down.
+                Blog hakkında kısa açıklama buraya gelecek.
             </p>
         </div>
     </header>
@@ -118,10 +106,10 @@
             <footer class="row tm-row">
                 <hr class="col-12">
                 <div class="col-md-6 col-12 tm-color-gray">
-                    Design: <a rel="nofollow" target="_parent" href="https://templatemo.com" class="tm-external-link">TemplateMo</a>
+                    Design: <a rel="nofollow" target="_blank" href="https://bilgeadam.com" class="tm-external-link">Bilge Adam</a>
                 </div>
                 <div class="col-md-6 col-12 tm-color-gray tm-copyright">
-                    Copyright 2020 Xtra Blog Company Co. Ltd.
+                    Copyright @DateTime.Now.Year &copy; BilgeAdam
                 </div>
             </footer>
         </main>
