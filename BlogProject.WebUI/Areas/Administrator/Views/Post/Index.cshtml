@@ -1,0 +1,67 @@
+﻿
+@model List<Post>
+@{
+    ViewData["Title"] = "Post";
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Bordered Table</div>
+    </div>
+    <div class="card-body">
+        <div class="card-sub">
+            <a asp-action="Create" asp-controller="Post" asp-area="Administrator" class="btn btn-success text-white">Yeni Makale Ekle</a>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Başlık</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Etiketler</th>
+                    <th scope="col">Durumu</th>
+                    <th scope="col">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Post item in Model)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.Kategori</td>
+                        <td>@item.Tags</td>
+                        <td>
+                            @if (item.Status == Status.Active)
+                            {
+                                <span class="bg-success text-white">Aktif</span>
+                            }
+                            else if (item.Status == Status.None)
+                            {
+                                <span>Onay Bekliyor</span>
+                            }
+                            else if (item.Status == Status.Updated)
+                            {
+                                <span class="bg-warning text-white">Onay Bekliyor</span>
+                            }
+                            else if (item.Status == Status.Deleted)
+                            {
+                                <span class="bg-danger text-white">Silindi</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.Status == Status.None || item.Status == Status.Updated)
+                            {
+                                <a asp-action="Activate" asp-controller="Post" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-success text-white"> <i class="la la-check"></i></a>
+                            }
+                            else if (item.Status == Status.Active || item.Status == Status.Deleted)
+                            {
+                                <a asp-action="Update" asp-controller="Post" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-warning text-white"> <i class="la la-edit"></i></a>
+                            }
+                            <a asp-action="Delete" asp-controller="Post" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-danger text-white"> <i class="la la-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

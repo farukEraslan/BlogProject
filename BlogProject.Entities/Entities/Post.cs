@@ -17,14 +17,14 @@ namespace BlogProject.Entities.Entities
         }
         public string Title { get; set; }
         public string PostDetail { get; set; }
-        public string Tags { get; set; }
-        public string ImagePath { get; set; }
-        public int ViewCount { get; set; }
+        public string? Tags { get; set; }
+        public string? ImagePath { get; set; }
+        public int? ViewCount { get; set; }
 
 
         [ForeignKey("Kategori")]
         public Guid CategoryId { get; set; }
-        public virtual Category Kategori { get; set; }
+        public virtual Category? Kategori { get; set; }
 
 
         [ForeignKey("Kullanici")]
@@ -32,6 +32,6 @@ namespace BlogProject.Entities.Entities
         public virtual User Kullanici { get; set; }
 
 
-        public virtual List<Comment> Comments { get; set; }
+        public virtual List<Comment>? Comments { get; set; }
     }
 }
