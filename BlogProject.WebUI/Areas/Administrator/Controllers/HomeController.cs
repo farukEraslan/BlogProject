@@ -1,10 +1,11 @@
 ﻿using BlogProject.Core.Service;
 using BlogProject.Entities.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogProject.WebUI.Areas.Administrator.Controllers
 {
-	[Area("Administrator")]
+	[Area("Administrator"), Authorize]
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;

@@ -14,7 +14,6 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Kategori</th>
                     <th scope="col">Açıklama</th>
                     <th scope="col">Durumu</th>
@@ -25,7 +24,6 @@
                 @foreach (Category item in Model)
                 {
                     <tr>
-                        <td>@item.Id</td>
                         <td>@item.CategoryName</td>
                         <td>@item.Description</td>
                         <td>
@@ -47,15 +45,15 @@
                             }
                         </td>
                         <td>
-                            @if (item.Status == Status.None)
+                            @if (item.Status == Status.None || item.Status == Status.Updated)
                             {
                                 <a asp-action="Activate" asp-controller="Category" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-success text-white"> <i class="la la-check"></i></a>
                             }
-                            else if (item.Status == Status.Active)
+                            else if (item.Status == Status.Active || item.Status == Status.Deleted)
                             {
-                                <a asp-action="Passive" asp-controller="Category" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-warning text-white"> <i class="la la-edit"></i></a>
+                                <a asp-action="Update" asp-controller="Category" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-warning text-white"> <i class="la la-edit"></i></a>
                             }
-                            <a asp-action="Remove" asp-controller="Category" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-danger text-white"> <i class="la la-trash"></i></a>
+                            <a asp-action="Delete" asp-controller="Category" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-danger text-white"> <i class="la la-trash"></i></a>
                         </td>
                     </tr>
                 }

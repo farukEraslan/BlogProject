@@ -40,6 +40,17 @@
                             Kategoriler
                         </a>
                     </li>
+                    @* Kullanıcı giriş yapmamış ise görünecek *@
+                    @if (string.IsNullOrEmpty(User.Identity.Name))
+                    {
+                        <li class="tm-nav-item">
+                            <a asp-action="Login" asp-controller="Account" asp-area="" class="tm-nav-link">
+                                <i class="fas fa-pen"></i>
+                                Giriş Yap
+                            </a>
+                        </li>
+                    }
+
                 </ul>
             </nav>
             <div class="tm-mb-65">
