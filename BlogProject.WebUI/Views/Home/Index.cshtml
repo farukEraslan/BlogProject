@@ -1,4 +1,5 @@
 ﻿@model List<Post>
+
 @{
     ViewData["Title"] = "Anasayfa";
 }
@@ -32,8 +33,8 @@
         </div>
         <hr>
         <div class="d-flex justify-content-between">
-            @*<span>@post.Comments.Count</span>*@
-            @*<span>@post.UserId</span>*@
+            <span>@post.Comments.Count</span>
+            <span>@post.UserId</span>
         </div>
     </article>
 }
@@ -41,5 +42,5 @@
 @*
 1. Yorum sayısı, yazar adı soyadı bilgilerini ana sayfada ilgili yazaıların kartında gösteriniz. Include() kullanarak.
 2. Kategoriler sayfasını oluşturunuz. Tıpkı ana sayfa gibi kategori listesi gösteriniz.
-3. Kategori adına tıklandığında o kategoriye ait posları ana sayfadaki liste şeklinde gösteriniz.
+3. Kategori adına tıklandığında o kategoriye ait postları ana sayfadaki liste şeklinde gösteriniz.
 *@

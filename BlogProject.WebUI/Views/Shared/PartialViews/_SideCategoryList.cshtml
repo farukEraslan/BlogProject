@@ -1,0 +1,9 @@
+﻿
+@model List<Category>
+
+<ul class="tm-mb-75 pl-5 tm-category-list">
+    @foreach (var item in Model)
+    {
+        <li><a asp-action="PostsByCategory" asp-controller="Category" asp-route-id="@item.Id">@Model</a></li>
+    }
+</ul>

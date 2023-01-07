@@ -68,6 +68,16 @@ namespace BlogProject.Service.Base
 
         public List<T> GetDefault(Expression<Func<T, bool>> predicate) => _context.Set<T>().Where(predicate).ToList();
 
+        public IQueryable<T> GetActive(params Expression<Func<T, object>>[] includes)
+        {
+            var query = _context.Set<T>().Where(x => x.Status == Core.Entity.Enum.Status.Active);
+            if (includes != null)
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+            return query;
+        }
+
         public bool Remove(T item)
         {
             item.Status = Status.Deleted;

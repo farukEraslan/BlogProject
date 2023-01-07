@@ -1,0 +1,66 @@
+﻿@model List<Category>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Bordered Table</div>
+    </div>
+    <div class="card-body">
+        <div class="card-sub">
+            <a asp-action="Create" asp-controller="Category" asp-area="Administrator" class="btn btn-success text-white">Yeni Kategori Ekle</a>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Açıklama</th>
+                    <th scope="col">Durumu</th>
+                    <th scope="col">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Category item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.CategoryName</td>
+                        <td>@item.Description</td>
+                        <td>
+                            @if (item.Status == Status.Active)
+                            {
+                                <span class="bg-success text-white">Aktif</span>
+                            }
+                            else if (item.Status == Status.None)
+                            {
+                                <span>Onay Bekliyor</span>
+                            }
+                            else if (item.Status == Status.Updated)
+                            {
+                                <span class="bg-warning text-white">Onay Bekliyor</span>
+                            }
+                            else if (item.Status == Status.Deleted)
+                            {
+                                <span class="bg-danger text-white">Silindi</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.Status == Status.None)
+                            {
+                                <a asp-action="Activate" asp-controller="Category" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-success text-white"> <i class="la la-check"></i></a>
+                            }
+                            else if (item.Status == Status.Active)
+                            {
+                                <a asp-action="Passive" asp-controller="Category" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-warning text-white"> <i class="la la-edit"></i></a>
+                            }
+                            <a asp-action="Remove" asp-controller="Category" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-danger text-white"> <i class="la la-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

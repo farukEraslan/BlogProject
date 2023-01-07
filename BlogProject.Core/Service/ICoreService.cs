@@ -19,6 +19,7 @@ namespace BlogProject.Core.Service
         public T GetById(Guid id);
         public T GetByDefault(Expression<Func<T, bool>> predicate); // FirstOrDefault'a benzer bir metot oluşturur.
         public List<T> GetActive();
+        IQueryable<T> GetActive(params Expression<Func<T, object>>[] includes);
         public List<T> GetDefault(Expression<Func<T, bool>> predicate);
         public List<T> GetAll();
         public bool Activate(Guid Id); // Aktifleştirmek için kullanılacak metot.
