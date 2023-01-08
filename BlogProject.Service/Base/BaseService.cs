@@ -62,6 +62,17 @@ namespace BlogProject.Service.Base
 
         public List<T> GetAll() => _context.Set<T>().ToList();
 
+        public IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _context.Set<T>().AsQueryable();
+            if (includes != null)
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+
+            return query;
+        }
+
         public T GetByDefault(Expression<Func<T, bool>> predicate) => _context.Set<T>().FirstOrDefault(predicate);
 
         public T GetById(Guid id) => _context.Set<T>().Find(id);

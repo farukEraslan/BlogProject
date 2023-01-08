@@ -22,6 +22,7 @@ namespace BlogProject.Core.Service
         IQueryable<T> GetActive(params Expression<Func<T, object>>[] includes);
         public List<T> GetDefault(Expression<Func<T, bool>> predicate);
         public List<T> GetAll();
+        IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes);
         public bool Activate(Guid Id); // Aktifleştirmek için kullanılacak metot.
         public bool Any(Expression<Func<T, bool>> predicate); // LINQ ifadesi ile var mı diye sorgulama yapacağımız metot.
         public int Save(); // DB'de manipülasyon işleminden sonra 1 veya daha fazla satır eklendiğinde bize kaç satırın etkilendiğini döndürecek metot

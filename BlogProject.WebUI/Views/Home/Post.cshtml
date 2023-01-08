@@ -21,7 +21,7 @@
                 <h2 class="pt-2 tm-color-primary tm-post-title">@Model.Post.Title</h2>
                 <p class="tm-mb-10">@Model.User.FirstName @Model.User.LastName, tarafından @Model.Post.CreatedDate tarihinde eklendi</p>
                 <p>
-                    @Model.Post.PostDetail
+                    @Html.Raw(@Model.Post.PostDetail)
                 </p>
                 <p>
 

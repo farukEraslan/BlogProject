@@ -1,7 +1,10 @@
 ﻿using BlogProject.Core.Service;
 using BlogProject.Entities.Entities;
+using BlogProject.WebUI.Areas.Administrator.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace BlogProject.WebUI.Areas.Administrator.Controllers
 {
@@ -9,12 +12,14 @@ namespace BlogProject.WebUI.Areas.Administrator.Controllers
     public class PostController : Controller
     {
         private readonly ICoreService<Post> _postService;
-        private readonly ICoreService<User> _userService;
+        private readonly ICoreService<Category> _catService;
+        private readonly IHostingEnvironment _env;
 
-        public PostController(ICoreService<Post> postService, ICoreService<User> userService)
+        public PostController(ICoreService<Post> postService, ICoreService<Category> catService, IHostingEnvironment env)
         {
             _postService = postService;
-            _userService = userService;
+            _catService = catService;
+            _env = env;
         }
 
         [HttpGet]
@@ -24,17 +29,31 @@ namespace BlogProject.WebUI.Areas.Administrator.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create(Guid id)
+        public IActionResult Create()
         {
+            ViewBag.Categories = new SelectList(_catService.GetActive(), "Id", "CategoryName");
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Post post)
+        public IActionResult Create(Post post, List<IFormFile> files)
         {
+            ViewBag.Categories = new SelectList(_catService.GetActive(), "Id", "CategoryName");
+            post.UserId = Guid.Parse(User.Claims.FirstOrDefault(x => x.Type == "Id").Value);
+
+            bool imgResult;
+            string imgPath = Upload.ImageUpload(files, _env, out imgResult);
+            if (imgResult)
+            {
+                post.ImagePath = imgPath; // eğer imgResult true ise ilgili property'e resmin yolunu ekle.
+            }
+            else
+            {
+                ViewBag.MessageError = $"Resim yükleme işleminde bir hata oluştu!";
+            }
+
             post.Status = Core.Entity.Enum.Status.None;
             post.ViewCount = 0;
-            //post.UserId = ;
 
             if (ModelState.IsValid)
             {
@@ -64,28 +83,35 @@ namespace BlogProject.WebUI.Areas.Administrator.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(Post post)
+        public IActionResult Update(Post post, List<IFormFile> files)
         {
-            if (ModelState.IsValid)
-            {
-                var updatedPost = _postService.GetById(post.Id);
-                updatedPost.ImagePath = post.ImagePath;
-                updatedPost.Title = post.Title;
-                updatedPost.Kategori = post.Kategori;
-                updatedPost.Status = Core.Entity.Enum.Status.Updated;
-                updatedPost.PostDetail = post.PostDetail;
+            ViewBag.Categories = new SelectList(_catService.GetActive(), "Id", "CategoryName");
+            post.UserId = Guid.Parse(User.Claims.FirstOrDefault(x => x.Type == "Id").Value);
 
-                bool result = _postService.Update(updatedPost);
-                if (result)
-                {
-                    TempData["MessageSuccess"] = $"Kayıt işlemi başarılı";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["MessageError"] = $"Kayıt işlemi sırasında bir hata meydana geldi. Lütfen tüm alanları kontrol edip tekrar deneyin.";
-                }
-            }
+            if (ModelState.IsValid)
+            {			
+				bool imgResult;
+				string imgPath = Upload.ImageUpload(files, _env, out imgResult);
+				if (imgResult)
+				{
+					post.ImagePath = imgPath; // eğer imgResult true ise ilgili property'e resmin yolunu ekle.
+				}
+				else
+				{
+					ViewBag.MessageError = $"Resim yükleme işleminde bir hata oluştu!";
+				}
+
+				bool result = _postService.Update(post);
+				if (result)
+				{
+					TempData["MessageSuccess"] = $"Kayıt işlemi başarılı.";
+					return RedirectToAction("Index");
+				}
+				else
+				{
+					TempData["MessageError"] = $"Kayıt işlemi sırasında bir hata meydana geldi. Lütfen tüm alanları kontrol edip tekrar deneyin.";
+				}
+			}
             else
             {
                 TempData["MessageError"] = $"Kayıt işlemi sırasında bir hata meydana geldi. Lütfen tüm alanları kontrol edip tekrar deneyin.";

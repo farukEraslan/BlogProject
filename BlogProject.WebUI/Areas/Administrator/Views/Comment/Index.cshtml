@@ -1,0 +1,74 @@
+﻿@model List<Comment>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Yorumlar</div>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Makale Başlığı</th>
+                    <th scope="col">Yorum</th>
+                    <th scope="col">Ekleyen</th>
+                    <th scope="col">Durumu</th>
+                    <th scope="col">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Comment item in Model)
+                {
+                    <tr>
+                        <td>@item.Gonderi.Title</td>
+                        <td>
+                            @if (item.CommentText.Length <= 50)
+                            {
+                                @item.CommentText
+                            }
+                            else
+                            {
+                                @item.CommentText.Substring(0,50)<span>...</span>
+                            }
+                        </td>
+                        <td>@item.Gonderi.Kullanici.FirstName @item.Gonderi.Kullanici.LastName</td>
+                        <td>
+                            @if (item.Status == Status.Active)
+                            {
+                                <span class="bg-success text-white">Aktif</span>
+                            }
+                            else if (item.Status == Status.None)
+                            {
+                                <span>Onay Bekliyor</span>
+                            }
+                            else if (item.Status == Status.Updated)
+                            {
+                                <span class="bg-warning text-white">Onay Bekliyor</span>
+                            }
+                            else if (item.Status == Status.Deleted)
+                            {
+                                <span class="bg-danger text-white">Silindi</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.Status == Status.None || item.Status == Status.Deleted)
+                            {
+                                <a asp-action="Activate" asp-controller="Comment" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-success text-white"> <i class="la la-check"></i></a>
+                            }
+                            else
+                            {
+                                <a asp-action="Delete" asp-controller="Comment" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-danger text-white"> <i class="la la-trash"></i></a>
+                            }
+
+                            <a asp-action="CommentDetail" asp-controller="Comment" asp-area="Administrator" asp-route-id="@item.Id" class="btn btn-info text-blue"> <i class="la la-comment"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

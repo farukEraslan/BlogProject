@@ -1,0 +1,59 @@
+﻿
+@model User
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+<div class="col-md-6">
+    @if (TempData["MessageError"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["MessageError"]
+        </div>
+    }
+    else if (TempData["MessageSuccess"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["MessageSuccess"]
+        </div>
+    }
+    <form asp-controller="User" asp-action="Update" asp-area="Administrator">
+        <input type="hidden" asp-for="Id" />
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Kullanıcı Güncelle</div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="FirstName">Adı</label>
+                    <input asp-for="FirstName" type="text" class="form-control input-square" placeholder="Adınızı Giriniz...">
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName">Adı</label>
+                    <input asp-for="LastName" type="text" class="form-control input-square" placeholder="Soyadınızı Giriniz...">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Title">Ünvan</label>
+                    <input asp-for="Title" type="text" class="form-control input-square" placeholder="Ünvanınızı Giriniz...">
+                </div>
+                <div class="form-group">
+                    <label asp-for="EmailAddress">Email Adresi</label>
+                    <input asp-for="EmailAddress" type="text" class="form-control input-square" placeholder="Email Adresinizi Giriniz...">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password">Şifre</label>
+                    <input asp-for="Password" type="password" class="form-control input-square" placeholder="Şifrenizi Giriniz...">
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageURL">Resim</label>
+                    <input asp-for="ImageURL" type="text" class="form-control input-square" placeholder="Dosya Yolunu Giriniz...">
+                </div>
+            </div>
+            <div class="card-action">
+                <button type="submit" class="btn btn-success">Kullanıcı Güncelle</button>
+            </div>
+        </div>
+    </form>
+</div>
+

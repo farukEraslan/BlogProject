@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 	<link rel="stylesheet" href="~/backTemplate/assets/css/ready.css">
 	<link rel="stylesheet" href="~/backTemplate/assets/css/demo.css">
+	@RenderSection("css", required:false)
 </head>
 <body>
 	<div class="wrapper">
@@ -111,6 +112,12 @@
 						<a asp-action="Index" asp-controller="User" asp-area="Administrator">
 							<i class="la la-th"></i>
 							<p>Kullanıcılar</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a asp-action="Index" asp-controller="Comment" asp-area="Administrator">
+							<i class="la la-th"></i>
+							<p>Yorumlar</p>
 						</a>
 					</li>
 				</ul>

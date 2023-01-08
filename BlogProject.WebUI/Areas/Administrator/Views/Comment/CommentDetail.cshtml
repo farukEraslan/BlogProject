@@ -1,0 +1,35 @@
+﻿
+@using BlogProject.WebUI.Areas.Administrator.Models;
+
+@model CommentDetailVM
+
+@{
+    ViewData["Title"] = "CommentDetail";
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">Yorum Sahibi : <b class="text-danger">@Model.User.FirstName @Model.User.LastName</b> </div>
+    </div>
+    <div class="card-body">
+
+    </div>
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            @if (Model.Comment.Status == Status.None || Model.Comment.Status == Status.Deleted)
+            {
+                <a asp-action="Activate" asp-controller="Comment" asp-area="Administrator" asp-route-id="@Model.Comment.Id" class="btn btn-block btn-success text-white">
+                    <i class="la la-check"></i>
+                    Yorumu Onayla
+                </a>
+            }
+            else if (Model.Comment.Status == Status.Active)
+            {
+                <a asp-action="Delete" asp-controller="Comment" asp-area="Administrator" asp-route-id="@Model.Comment.Id" class="btn btn-block btn-danger text-white">
+                    <i class="la la-trash"></i>
+                    Yorumu Sil
+                </a>
+            }
+        </div>
+    </div>
+</div>
